@@ -29,9 +29,9 @@ public class MyDogFunction {
 
     private static final Logger LOG = LoggerFactory.getLogger(MyDogFunction.class);
 
-    public static final BiFunction<String,ClassLoader,JSONObject> getDepFunc = (type,loader)->{
-        return readConfigFileContent(type, "dependency", loader);
-    };
+    public static final BiFunction<String,ClassLoader,JSONObject> getDepFunc = (type,loader)->
+         readConfigFileContent(type, "dependency", loader);
+
 
     public static OutputDef renderOutputDef(String type,ClassLoader classLoader){
 
@@ -41,8 +41,8 @@ public class MyDogFunction {
         Map<String, Object> props = GenerateContext.get("props");
         Objects.requireNonNull(props);
         source = TemplateUtils.render(type + "_output_def", source, props);
-        LOG.info("A source==>{}",source);
-        System.out.println("props = " + props);
+//        LOG.info("A source==>{}",source);
+//        LOG.info("props = {}" , props);
         JSONObject jo = JSON.parseObject(source);
 
         JSONObject outItemsDef = jo.getJSONObject("outItemsDef");
@@ -50,10 +50,10 @@ public class MyDogFunction {
         Map<String, List<OutputItemDef>> instanceMap = new HashMap<>();
         outItemsDef.entrySet().stream().forEach(entry -> {
             String key = entry.getKey();
-            LOG.info("key={}", key);
+//            LOG.info("key={}", key);
             JSONArray itemDefJsons = (JSONArray)entry.getValue();
             List<OutputItemDef> itemDef = parseOutputItemDef(itemDefJsons, classLoader);
-            LOG.info("itemDef={}",itemDef);
+//            LOG.info("itemDef={}",itemDef);
             if(key.equals("Common")){
                 commons.addAll(itemDef);
             }
@@ -69,7 +69,7 @@ public class MyDogFunction {
         outputDef.setCommList(commons);
         outputDef.setInstanceDefMap(instanceMap);
 
-        LOG.info("outputDef={},commons.size={},instanceMap.size={}",outputDef,outputDef.getCommList()==null?0:outputDef.getCommList().size(),outputDef.getInstanceDefMap()==null?0:outputDef.getInstanceDefMap().size());
+//        LOG.info("outputDef={},commons.size={},instanceMap.size={}",outputDef,outputDef.getCommList()==null?0:outputDef.getCommList().size(),outputDef.getInstanceDefMap()==null?0:outputDef.getInstanceDefMap().size());
         return outputDef;
     }
 
@@ -145,7 +145,7 @@ public class MyDogFunction {
 
     private static JSONObject readConfigFileContent(String type,String key,ClassLoader classLoader){
         String content = readConfigFile(type, key, classLoader);
-        if (Strings.isNullOrEmpty(content)) {
+        if (!Strings.isNullOrEmpty(content)) {
             return JSON.parseObject(content);
         }
         else {

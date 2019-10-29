@@ -36,7 +36,6 @@ public class DatasourcePlugin implements MyDogPlugin {
 
     @Override
     public OutputDef getOutputDef() {
-
         return MyDogFunction.renderOutputDef("datasource",classLoader);
     }
 
@@ -49,6 +48,12 @@ public class DatasourcePlugin implements MyDogPlugin {
             }
         };
     }
+
+    @Override
+    public JSONObject getViewProps() {
+        return null;
+    }
+
     //TODO: 1 还要支持多种数据源的配置
     //TODO: 2 默认支持H2,不需要用户配置数据库也可以生成代码
     //TODO: 3 事务类型的选择和配置

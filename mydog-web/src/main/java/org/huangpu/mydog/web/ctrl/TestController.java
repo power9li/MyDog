@@ -3,8 +3,11 @@ package org.huangpu.mydog.web.ctrl;
 import org.huangpu.mydog.core.MyDogPlugin;
 import org.huangpu.mydog.core.flow.FlowController;
 import org.huangpu.mydog.core.plugins.GenerateContext;
+import org.huangpu.mydog.web.vo.MyDogPluginsParams;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sun.net.www.protocol.file.FileURLConnection;
 
@@ -29,19 +32,17 @@ public class TestController {
         return "Wo!";
     }
 
+    @RequestMapping(value = "testParam",method = RequestMethod.POST)
+    @ResponseBody
+    public String testParam(@RequestBody() MyDogPluginsParams myDogPluginsParams) {
+    	System.out.println(myDogPluginsParams);
+    	return "ok";
+    }
+    
     @RequestMapping(value = "testcl")
     @ResponseBody
     public String testCL(){
         MyDogPlugin entityUiPlugin = GenerateContext.getPluginByMetadataType("entityui");
-//        ClassLoader classLoader = entityUiPlugin.getClass().getClassLoader();
-//        URL resource = classLoader.getResource("templates/bootstrap");
-//        System.out.println("resource = " + resource);
-//        File f = new File(resource.getFile());
-//        try {
-//            FileUtils.copyDirectory(f, new File("/tmp/mydogx/"));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         URL url = entityUiPlugin.getClass().getProtectionDomain().getCodeSource().getLocation();
         ClassLoader classLoader = entityUiPlugin.getClass().getClassLoader();

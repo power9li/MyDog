@@ -24,10 +24,11 @@ public class ByGrammarPreserver implements Preserver<GrammarOutputItem> {
     @Override
     public void persistent(GrammarOutputItem outputItem) {
         OutputFormat outputFormat = outputItem.getOutputFormat();
-        if (outputFormat.equals(OutputFormat.SQL)) {
+        // 连接数据库执行SQL
+        //if (outputFormat.equals(OutputFormat.SQL)) {
             String code = outputItem.getGrammar().getCode();
 
-            Map<String,Map<String,JSONObject>> propMap = GenerateContext.get("props");
+            Map<String, Map<String, JSONObject>> propMap = GenerateContext.get("props");
             JSONObject datasource = propMap.get("datasource").get("tomcatDatasource");
             JSONObject connectionProps = datasource.getJSONObject("connectionProps");
 
@@ -37,17 +38,17 @@ public class ByGrammarPreserver implements Preserver<GrammarOutputItem> {
                     connectionProps.getString("spring.datasource.password"),
                     code);
 
-            System.out.println("execute rows = " + execute);
-        }
-        else {
+            LOG.debug("execute rows = " + execute);
+        //} else {
+        // 生成SQL文件
             File dest = new File(outputItem.getOutputPath() + outputItem.getOutputName());
             try {
                 FileUtils.writeStringToFile(dest, outputItem.getOutputContent(), "UTF-8");
-                LOG.info("dest = " + dest.getAbsolutePath());
+                LOG.debug("dest = " + dest.getAbsolutePath());
             } catch (IOException e) {
                 LOG.error("writeStringToFile failed.", e);
             }
-        }
+        //}
 
     }
 

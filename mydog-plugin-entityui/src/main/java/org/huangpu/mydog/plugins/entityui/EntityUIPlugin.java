@@ -14,7 +14,8 @@ public class EntityUIPlugin implements MyDogPlugin {
     private static final ClassLoader classLoader = EntityUIPlugin.class.getClassLoader();
 
     @Override
-    public void init() {
+    public void init()
+    {
         dependencyProps = MyDogFunction.getDepFunc.apply(getMetadataType(),classLoader);
     }
 
@@ -41,6 +42,11 @@ public class EntityUIPlugin implements MyDogPlugin {
     @Override
     public GeneratorDecorator getGeneratorDecorator(Generator generator) {
         return new EntityUIGeneratorDecorator(generator);
+    }
+
+    @Override
+    public JSONObject getViewProps() {
+        return null;
     }
 
     //TODO: 1 多种UI风格支持

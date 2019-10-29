@@ -21,7 +21,7 @@ public class ByGrammarGenerator implements Generator {
 
         OutputFormat outputFormat = outputItemDef.getGenDef().getOutputFormat();
 
-        LOG.info("outputFormat = {}, itemName = {}" , outputFormat, outputItemDef.getGenDef().getItemName());
+        LOG.debug("outputFormat = {}, itemName = {}" , outputFormat, outputItemDef.getGenDef().getItemName());
 
         Grammar grammar = GrammarFactory.buildGrammar(outputFormat);
 //        Map<String,Object> propMap = outItemDefinition.getPropMap();
@@ -33,9 +33,11 @@ public class ByGrammarGenerator implements Generator {
         codedOutputItem.setGrammar(grammar);
         codedOutputItem.setOutputFormat(outputFormat);
         codedOutputItem.setOutputName(outputItemDef.getGenDef().getItemName());
+        codedOutputItem.setOutputPath(outputItemDef.getPreDef().getOutputPath());
+
 
         String code = grammar.getCode();
-        LOG.info("code = {}", code);
+        LOG.debug("code = {}", code);
         codedOutputItem.setOutputContent(code);
         codedOutputItem.setPreserver(new ByGrammarPreserver());
 

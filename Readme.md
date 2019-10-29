@@ -6,6 +6,8 @@ MyDog - 开发者最忠实的朋友.
 
 主人，有什么吩咐？生成代码？好的。让我帮你做更多的事, 汪汪！
 
+MyDog的HTML界面请看[这里](./mydog-web/Readme.md)
+
 ## 介绍
 **MyDog** 是一个自动代码生成工具。
 
@@ -37,6 +39,13 @@ MyDog - 开发者最忠实的朋友.
 ```
 编译成功将看到 ``BUILD SUCCESS`` 
 
+
+#### 如果你不希望编译源代码,也可以直接下载已经编译好的文件:
+ 
+  *  [mydog-shell.jar](https://github.com/PowerShenli/MyDog/releases/download/0.01/mydog-shell-1.0-SNAPSHOT.jar)
+  *  [demo.json](https://github.com/PowerShenli/MyDog/releases/download/0.01/demo.json)
+
+
 #### 3. 修改配置
 
 * 配置文件说明
@@ -60,26 +69,29 @@ MyDog - 开发者最忠实的朋友.
 
 <br/>
 
-  * 修改jdbc驱动路径
 
-找到关键字 ``driverJarPath`` ,确认与数据库匹配，且路径有效
-
-#### 4. 创建数据库
-参照第第三步的配置文件中的 ``spring.datasource.url`` 参数，创建数据库。
-使用localhost:3306端口，默认数据库mydog,IP 端口和 数据库名均可修改，但
-数据库目前仅仅支持mysql，后续会支持多种数据库。
-
+#### 4. 创建数据库,修改配置
+  * 创建数据库
 
 ```
 mysql> create database mydog default charset utf8;
 ```
 
+  * 修改数据库相关信息
+  
+找到关键字 ``driverJarPath`` , 修改驱动路径确认与数据库匹配，且路径有效<br/>
+找到关键字 ``spring.datasource.url`` 修改为正确的连接信息，如ip端口等<br/>
+找到关键子 ``spring.datasource.username`` 和 ``spring.datasource.password`` 修改为正确的用户名和密码<br/>
+
+
 #### 5. 执行代码生成
 
 ```
 ~$> cd /tmp/mydog/MyDog/mydog-shell/target
-~$> java -jar mydog-shell-1.0-SNAPSHOT.jar ../demo.json
+~$> java -Dfile.encoding=utf-8 -jar mydog-shell-1.0-SNAPSHOT.jar ../demo.json
 ```
+
+ ``-Dfile.encoding=utf-8`` 是针对windows cmd这种环境编码可能有问题而加上的.
 
 #### 6. 查看输出
 

@@ -11,6 +11,10 @@
         },
         "idType":"Integer",
         "packageName": "org.huangpu.mydog.demo",
+        "pagination": {
+          "enabled": true,
+          "pageSize": 1
+        }, // 是否需要分页
         "fields": [
           {
             "fieldName": "username",
@@ -23,7 +27,7 @@
             ],
             "fieldType": "String",
             "length":"10",
-            "null":false,
+            "isNull":false,
             "viewProp":{
               "type":"text"
             }
@@ -34,7 +38,7 @@
             "isId": false,
             "fieldType": "String",
             "length":50,
-            "null":false,
+            "isNull":false,
             "validates":[
               "@NotNull",
               "@Size(min =6, max=18)",
@@ -50,7 +54,7 @@
             "fieldType": "Integer",
             "isId": true,
             "length":11,
-            "null": true,
+            "isNull": true,
             "validates":[
 
             ],
@@ -64,7 +68,7 @@
             "fieldType": "Integer",
             "isId": false,
             "length": 3,
-            "null": false,
+            "isNull": false,
             "validates":[
               "@NotNull",
               "@DecimalMax(value = \"99\")",
@@ -80,7 +84,7 @@
             "fieldType": "String",
             "isId": false,
             "length": 50,
-            "null": false,
+            "isNull": false,
             "validates":[
               "@NotNull",
               "@Pattern(regexp=\"^\\\\s*\\\\w+(?:\\\\.{0,1}[\\\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\\\.[a-zA-Z]+\\\\s*$\")"
@@ -129,6 +133,10 @@
         },
         "idType":"Integer",
         "packageName": "org.huangpu.mydog.demo",
+        "pagination": {
+          "enabled": true,
+          "pageSize": 2
+        },
         "fields": [
           {
             "fieldName": "name",
@@ -141,7 +149,7 @@
             ],
             "fieldType": "String",
             "length":"18",
-            "null":false,
+            "isNull":false,
             "viewProp":{
               "type":"text"
             }
@@ -152,9 +160,9 @@
             "isId": false,
             "fieldType": "Boolean",
             "length":1,
-            "null":false,
+            "isNull":false,
             "viewProp":{
-              "type":"redio",
+              "type":"radio",
               "enum":"{\"true\":\"是\",\"false\":\"否\"}"
             }
           },
@@ -164,7 +172,7 @@
             "fieldType": "Integer",
             "isId": true,
             "length":11,
-            "null": true,
+            "isNull": true,
             "validates":[
 
             ],
@@ -190,6 +198,9 @@
         },
         "idType":"Integer",
         "packageName": "org.huangpu.mydog.demo",
+        "pagination": {
+          "enabled":false
+        },
         "unique":["uid","rid"],
         "fields": [
           {
@@ -201,7 +212,7 @@
             ],
             "fieldType": "Integer",
             "length":"11",
-            "null":false,
+            "isNull":false,
             "viewProp":{
               "type":"text"
             }
@@ -215,7 +226,7 @@
             ],
             "fieldType": "Integer",
             "length":"11",
-            "null":false,
+            "isNull":false,
             "viewProp":{
               "type":"text"
             }
@@ -226,7 +237,7 @@
             "fieldType": "Integer",
             "isId": true,
             "length":11,
-            "null": true,
+            "isNull": true,
             "validates":[
 
             ],
@@ -245,16 +256,29 @@
       "instanceName": "bootstrap+jquery"
     },
     {
+      "metadataType" :"ormapping",
+      "instanceName" :"mybatis",
+      "properties":{
+        "generateSQL" : false,
+        "mapperType"  : "XMLMAPPER",//"ANNOTATEDMAPPER"
+        "transaction":{
+          "on":true, //工程是否开启事务
+          "defaultStrategy":true //工程是否采用默认事务策略
+        }
+      }
+    },
+    {
       "properties": {
         "name":"MyDog测试项目",
-        "springBoot-version": "1.4.2.RELEASE",
+        "springBootVersion": "1.4.2.RELEASE",
         "project": {
           "groupId": "com.power.test",
           "artifactId": "MyDogPrj",
           "version": "1.0.0-SNAPSHOT"
         },
         "basePath": "com/power/test/project",
-        "outputPath": "/tmp/myDog_1/output/",
+        "outputPath": "/tmp/myDog_2/",
+        "outputType":"file",//download
         "basePackage": "com.power.test.project",
         "appProp":{
           "server.port":"8082",

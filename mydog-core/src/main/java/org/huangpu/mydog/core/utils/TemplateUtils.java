@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.util.Map;
 
 /**
@@ -33,11 +32,14 @@ public class TemplateUtils {
         }
         String rst = "";
         try {
-            Template temp = cfg.getTemplate(tmpKey);
-            Writer out = new StringWriter(2048);
+            Template temp = cfg.getTemplate(tmpKey,"UTF-8");
+            temp.setOutputEncoding("UTF-8");
+            StringWriter out = new StringWriter(2048);
+
             temp.process(param, out);
-            rst = out.toString()/*.replaceAll("[\\n\\r]", "")*/;
+            rst = out.toString();
             out.flush();
+
         }catch (IOException| TemplateException e) {
             LOG.error("process templage failed",e);
         }
